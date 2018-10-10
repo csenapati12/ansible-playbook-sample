@@ -1,0 +1,26 @@
+---
+- hosts: webservers
+  sudo: yes
+  tasks:
+    - name: before deployment folder structure
+      shell: cd /root/deploy && ls -la
+    - name: Copy the playbook
+      copy: src=/root/ansible/installapache.yml dest=/root/deploy
+    - name: after the depliyment
+      shell: cd /root/deploy && ls -la
+
+	  
+	  
+	  
+
+root@ip-172-31-30-94:~/ansible# vi installapache.yml
+---
+- hosts: webservers
+  sudo: yes
+  tasks:
+    - name: install apache2
+      apt: name=apache2 update_cache=yes state=latest
+    - name: enabled mod_rewrite
+      apache2_module: name=rewrite state=present
+      notify:
+        - restart apache2
