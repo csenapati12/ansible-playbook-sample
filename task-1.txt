@@ -1,0 +1,2 @@
+1. job backup plugin
+2. master slave configuration
